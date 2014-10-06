@@ -13,6 +13,6 @@ class Controller {
 	}
 	
 	public function clicked() {
-		$this->model->str = "Y DID U CLICK!!!";
+		$this->model->str = "Well done!";
 	}
 }

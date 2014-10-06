@@ -15,7 +15,8 @@ class view {
 	}
 	
 	public function output() {
-		return "<p><a href='index.php?action=clicked'>" . $this->model->str . "</a></p>";
+		$data = "<p>" . $this->model->str . "</p>";
+		include_once($this->model->template);
 	}
 }
 

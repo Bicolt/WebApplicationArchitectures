@@ -6,8 +6,10 @@
 
 class Model {
 	public $str;
+	public $template;
 	public function __construct() {
-		$this->str = "Hello! Click here";
+		$this->str = "Hello World!";
+		$this->template = "template.php";
 	}
 }
 
