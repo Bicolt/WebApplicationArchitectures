@@ -3,15 +3,15 @@
 /** @author Nicolas Benning
  * @example MVC
 */
-class Controller_home_page {
+class Controller {
 	private $model;
 	public function __construct($model, $action = null) {
 		$this->model = $model;
 		
 		if ($action != null) {
 			switch ($action) {
-				case "PersonalIntroCLick" :
-					$this->redirectToPersonalIntroPage ();
+				case "PersonnalIntroClick" :
+					$this->redirectToPersonnalIntroPage ();
 					break;
 				case "PublicationsClick" :
 					$this->redirectToPublicationsPage ();
@@ -21,8 +21,12 @@ class Controller_home_page {
 			}
 		}
 	}
-	public function redirectToPersonalIntroPage() {
+	
+	public function redirectToPersonnalIntroPage() {
+		header("location: index.php?page=personnal_intro");
 	}
+	
 	public function redirectToPublicationsPage() {
+		header("location: index.php?page=publications");
 	}
 }

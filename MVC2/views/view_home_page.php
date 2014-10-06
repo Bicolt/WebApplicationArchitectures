@@ -4,7 +4,7 @@
  * @example MVC
  */
 
-class view {
+class View {
 	
 	private $controller;
 	private $model;
@@ -15,7 +15,9 @@ class view {
 	}
 	
 	public function output() {
-		$data = "<p>" . $this->model->str . "</p>";
+		$motto = $this->model->motto;
+		$personnalIntro_box = $this->model->personnalIntro;
+		$publications_box = $this->model->publications;
 		include_once($this->model->template);
 	}
 }
