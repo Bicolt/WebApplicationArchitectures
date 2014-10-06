@@ -1,3 +1,3 @@
 WebApplicationArchitectures
 ===========================
-Repository for the examples of the Web Application Architectures class
+Repository for the examples made in the Web Applications Architectures class
