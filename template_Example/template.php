@@ -8,8 +8,7 @@
 	</head>
 	
 	<body>
-		<?php 
-			echo $data 
-		?>
+		Welcome <?php echo $author ?>!
+		<?php echo $data ?>
 	</body>
 </html>
