@@ -29,9 +29,11 @@ class DBManager {
 	}
 	
 	function executeQuery($query) {
+		$result;
+		
 		if (! empty ( $this->db_link ))
 			mysqli_set_charset ( $this->db_link , "utf8" );
-			$result = mysqli_query ( $this->db_link, $query );
+			$result = mysqli_query ( $this->db_link, $query ) or die("Cannot execute query");
 		
 		$rows = array();
 		while ( $row = $result->fetch_array ( MYSQLI_ASSOC ) ) {
