@@ -19,7 +19,8 @@ class DBManager {
 	}
 	
 	function openConnection() {
-		$this->db_link = mysqli_connect ( $this->hostname, $this->username, $this->password, $this->dbname );
+		$this->db_link = mysqli_connect ( $this->hostname, $this->username, $this->password, $this->dbname )
+		or die("Cannot coennect to the DB");
 	}
 	
 	function closeConnection() {
@@ -29,6 +30,7 @@ class DBManager {
 	
 	function executeQuery($query) {
 		if (! empty ( $this->db_link ))
+			mysqli_set_charset ( $this->db_link , "utf8" );
 			$result = mysqli_query ( $this->db_link, $query );
 		
 		$rows = array();
