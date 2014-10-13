@@ -11,7 +11,7 @@
 	<body>
 			<div class='container'>
 					<h1>Publications</h1>
-					<p><?php echo $publications ?></p>
+					<p><?php echo $publications_box ?></p>
 					<p><a class='btn btn-primary' href='index.php?HomePageClick'>Home &raquo</a></p>
 			</div>
 	</body>

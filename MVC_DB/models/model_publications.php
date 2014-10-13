@@ -4,17 +4,20 @@
  * @example MVC
  */
 
+include_once ("db/simple_db_mysql_manager.php");
+
 class Model {
 	public $publications;
 	
-	public $template;
 	public function __construct() {
-		$this->publications = "<ul>
-					<li>Nothing</li>
-					<li>Rien</li>
-					<li>Nada</li>
-				</u>";
-		$this->template = "templates/template_publications.php";
+		
+		$dbManager = new DBManager();
+		$dbManager->openConnection();
+		
+		$query = 'SELECT * FROM publications';
+		$this->publications = $dbManager->executeQuery($query);
+		
+		$dbManager->closeConnection();
 	}
 }
 

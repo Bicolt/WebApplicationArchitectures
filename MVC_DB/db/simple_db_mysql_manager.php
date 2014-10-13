@@ -11,7 +11,7 @@ class DBManager {
 	private $dbname;
 	
 	function __construct() {
-		include_once '../conf/config.inc.php';
+		include_once 'conf/config.inc.php';
 		$this->hostname = DB_HOST;
 		$this->username = DB_USER;
 		$this->password = DB_PASS;
@@ -31,6 +31,7 @@ class DBManager {
 		if (! empty ( $this->db_link ))
 			$result = mysqli_query ( $this->db_link, $query );
 		
+		$rows = array();
 		while ( $row = $result->fetch_array ( MYSQLI_ASSOC ) ) {
 			$rows [] = $row;
 		}
