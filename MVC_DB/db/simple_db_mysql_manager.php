@@ -20,7 +20,7 @@ class DBManager {
 	
 	function openConnection() {
 		$this->db_link = mysqli_connect ( $this->hostname, $this->username, $this->password, $this->dbname )
-		or die("Cannot coennect to the DB");
+		or die("Cannot connect to the DB");
 	}
 	
 	function closeConnection() {

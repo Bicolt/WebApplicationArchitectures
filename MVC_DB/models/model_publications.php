@@ -4,20 +4,25 @@
  * @example MVC
  */
 
-include_once ("db/simple_db_mysql_manager.php");
+include ("db/DAO_factory.php");
 
 class Model {
+	private $DAO_Factory = null;
 	public $publications;
 	
 	public function __construct() {
-		
-		$dbManager = new DBManager();
-		$dbManager->openConnection();
-		
-		$query = 'SELECT * FROM publications';
-		$this->publications = $dbManager->executeQuery($query);
-		
-		$dbManager->closeConnection();
+		$this->DAO_Factory = new DAO_Factory();
+		$this->DAO_Factory->initDBResources();
+	}
+	
+	public function getPublicationsArray(){
+		$publicationsDAO_OBJ = $this->DAO_Factory->getPublicationsDAO();
+		$resultSet = $publicationsDAO_OBJ->getPublications2();
+		return $resultSet;
+	}
+	
+	function __destruct() {
+		$this->DAO_Factory->clearDBResources();
 	}
 }
 

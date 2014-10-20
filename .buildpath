@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <buildpath>
-	<buildpathentry kind="src" path="TDD_Example/appTests"/>
+	<buildpathentry kind="src" path="MVC_DB/conf"/>
+	<buildpathentry kind="con" path="/WebApplicationArchitectures/TDD_Example/"/>
+	<buildpathentry kind="src" path="MVC2/controllers"/>
+	<buildpathentry kind="src" path="MVC_DB/controllers"/>
+	<buildpathentry kind="src" path="MVC2/views"/>
+	<buildpathentry kind="src" path="MVC_DB/views"/>
 	<buildpathentry kind="src" path="TDD_Example/simpletest"/>
-	<buildpathentry kind="src" path="TDD_Example/source"/>
+	<buildpathentry kind="src" path="MVC2/models"/>
+	<buildpathentry kind="src" path="MVC_DB/db"/>
 	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
+	<buildpathentry kind="src" path="TDD_Example/source"/>
+	<buildpathentry excluding="db/|db/DAO/|controllers/|views/|conf/|templates/|css/|models/" kind="src" path="MVC_DB"/>
+	<buildpathentry kind="src" path="MVC_DB/css"/>
+	<buildpathentry kind="src" path="TDD_Example/appTests"/>
+	<buildpathentry kind="src" path="MVC_DB/templates"/>
+	<buildpathentry kind="src" path="MVC_DB/models"/>
 </buildpath>
