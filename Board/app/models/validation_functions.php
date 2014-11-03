@@ -1,28 +1,45 @@
 <?php
 
 /** @author Nicolas Benning
- * @example MVC
  */
-
-include ("db/DAO_factory.php");
-
-class Model {
-	private $DAO_Factory = null;
-	public $publications;
-	
-	public function __construct() {
-		$this->DAO_Factory = new DAO_Factory();
-		$this->DAO_Factory->initDBResources();
+class validation_functions {
+	/**
+	 * check whether the email string is a valid email address using a regular expression
+	 * @param $emailStr - the input email string
+	 * @return boolean indicating whether it is a valid email or not     
+	 */
+	public function isEmailValid($emailStr) {
+		$regex = "/ˆ[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4}) $/i";
+		if (!preg_match ($regex, $emailStr))
+			return (false);
+		else
+			return (true);
 	}
 	
-	public function getPublicationsArray(){
-		$publicationsDAO_OBJ = $this->DAO_Factory->getPublicationsDAO();
-		$resultSet = $publicationsDAO_OBJ->getPublications2();
-		return $resultSet;
+	/**
+	 *
+	 * @param $number -	the input number
+	 * @param $min - the minimum value for the input number
+	 * @param $max - the maximum value for the input number
+	 * @return boolean indicating whether it is a valid number in the input range     
+	 */
+	public function isNumberInRangeValid($number, $min, $max) {
+		if (is_numeric ( $number ))
+			if ($number >= $min && $number <= $max)
+				return (true);
+		return (false);
 	}
 	
-	function __destruct() {
-		$this->DAO_Factory->clearDBResources();
+	/**
+	 * @param $string - the input string
+	 * @param $maxchars - the maximum length of the input string
+	 * @return boolean indicating whether it is a valid string of the right max length      
+	 */
+	public function isLengthStringValid($string, $maxchars) {
+		if (is_string ( $string ))
+			if (strlen ( $string ) <= $maxchars)
+				return (true);
+		return (false);
 	}
 }
 
