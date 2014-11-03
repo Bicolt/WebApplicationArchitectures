@@ -5,17 +5,15 @@
  */
 
 class baseDAO {
-	private $dbManager = null;
+	public $dbManager = null;
 	
-	function __construct($dbManagerOBJ){
-		$this->dbManager = $dbManagerOBJ;
+	function __construct($dbmanagerOBJ){
+		$this->dbManager = $dbmanagerOBJ;
 	}
 	
 	function getDBManager(){
 		return $this->dbManager;
 	}
 }
-
-
 
 ?>
