@@ -8,8 +8,7 @@ define ( "DB_PORT", 3306 ); // set database port
 define ( "DB_NAME", "ditcoursedb" ); // set database name
 
 /* application constants */
-define ("SEND_ERRORS_TO", 'you@yourwebsite.com' ) 
-; // set notification email address
+define ("SEND_ERRORS_TO", 'bicolt@hotmail.fr' ); // set notification email address
 define ( "DISPLAY_DEBUG", true ); // display db errors ?
 define ( "APP_NAME", "MVC" ); // application name
 
