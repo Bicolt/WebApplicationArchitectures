@@ -1,34 +1,15 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="description" content="template MVC">
-		<meta name="author" content="Nicolas Benning">
-		<link href="css/bootstrap/css/bootstrap.css" rel="stylesheet">
-		<title>Nicolas' Portfolio</title>
-	</head>
-	
-	<body>
-			<div class='container' style='padding-top: 30px'>
-				<div class='hero-unit'>
-					<h1>My Portfolio</h1>
-					<h5><?php echo $motto ?></h5>
-				</div>
-				<div class="row">
-					<div class="span6">
-						<h3>Personnal Introduction</h3>
-						<p><?php echo $personnalIntro_box ?></p>
-						<p><a class='btn' href='index.php?action=PersonnalIntroClick'>View more &raquo</a></p>
-					</div>
-					<div class="span6">
-						<h3>Publications</h3>
-						<p><?php echo $publications_box ?></p>
-						<p><a class='btn' href='index.php?action=PublicationsClick'>View more &raquo</a></p>
-					</div>
-				</div>
-						
-						
-			</div>
+<form id='insertNewMessage' method='get' action='index.php'>
+	<input id='action' type='hidden' name='action' value='insertNewMessageFromSimpleForm'/> 
+	<label for='fAuthorEmail'>Email</label>
+	<input id=' fAuthorEmail' type='text' name=' fAuthorEmail' /> 
+	<label for='fMessageTitle'>Title</label> 
+	<input id=' fMessageTitle' type='text' name='fMessageTitle' />
+	<label for=' fMessageContent'>Content</label>
+	<textarea rows='2' id='fMessageContent' type='text' name='fMessageContent' cols=""></textarea>
 
-	</body>
-</html>
+	<div class="form-group">
+		<div class="controls">
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</div>
+	</div>
+</form>
