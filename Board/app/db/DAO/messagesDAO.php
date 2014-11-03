@@ -1,39 +1,32 @@
 <?php
 /**
  * @author Nicolas Benning
- * Class for publications DAO
+ * definition of the messages DAO
  */
-include 'baseDAO.php';
-class publicationsDAO extends baseDAO {
+include 'dao.php';
+class messagesDAO extends baseDAO {
 	
-	/*
-	 * overriding parent's constructor
-	 */
-	function __construct($dbManager) {
-		parent::__construct ( $dbManager );
+	function messagesDAO($dbMng) {
+		parent::BaseDAO( $dbMng );
 	}
 	
-	// function getPublications(){
-	// $sql = "SELECT * FROM publications ORDER BY publications.authors";
+	function getMessages() {
+		$sqlQuery = "SELECT * ";
+		$sqlQuery .= "FROM board ";
+		$sqlQuery .= "ORDER BY board.author;";
+		
+		$result = $this->getDbManager()->executeSelectQuery( $sqlQuery );
+		
+		return $result;
+	}
 	
-	// $db = $this->getDBManager();
-	// $resultset = $db->executeQuery($sql);
-	
-	// return $resultset;
-	// }
-	
-	// function getPublicationsContaining($str){
-	// $sql = "SELECT * FROM publications WHERE publications.authors LIKE '" . $str . "'";
-	// $sql .= "ORDER BY publications.authors";
-	// $db = $this->getDBManager();
-	// $resultset = $bd->executeQuery($sql);
-	// return $resultset;
-	// }
-	function getPublications2() {
-		$query = $this->getDBManager()->prepareQuery ( "select * from publications" );
-		$this->getDBManager ()->executeQuery ( $query );
-		$resultSet = $this->getDBManager ()->fetchResults ( $query );
-		return $resultSet;
+	function insertNewMessage($email, $title, $content) {
+		$sqlQuery = "INSERT INTO board(id, author, title, content) ";
+		$sqlQuery .= "VALUES(NULL,'$email','$title','$content')";
+		
+		$result = $this->getDbManager()->executeQuery( $sqlQuery );
+		
+		return $result;
 	}
 }
 
