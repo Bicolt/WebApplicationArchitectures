@@ -4,7 +4,7 @@
  * basic DAO object
  */
 
-class baseDAO {
+class BaseDAO {
 	public $dbManager = null;
 	
 	function __construct($dbmanagerOBJ){

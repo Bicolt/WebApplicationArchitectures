@@ -4,10 +4,10 @@
  * definition of the messages DAO
  */
 include 'dao.php';
-class messagesDAO extends baseDAO {
+class messagesDAO extends BaseDAO {
 	
 	function messagesDAO($dbMng) {
-		parent::BaseDAO( $dbMng );
+		parent::__construct($dbMng);
 	}
 	
 	function getMessages() {
@@ -15,7 +15,7 @@ class messagesDAO extends baseDAO {
 		$sqlQuery .= "FROM board ";
 		$sqlQuery .= "ORDER BY board.author;";
 		
-		$result = $this->getDbManager()->executeSelectQuery( $sqlQuery );
+		$result = $this->getDbManager()->executeQuery( $sqlQuery );
 		
 		return $result;
 	}

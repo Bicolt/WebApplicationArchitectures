@@ -35,9 +35,9 @@ class DAO_Factory {
 	 * 
 	 * @return publications Database Access Object
 	 */
-	function getPublicationsDAO(){
-		include_once 'DAO/publicationsDAO.php';
-		return new publicationsDAO($this->getDBManager());
+	function getMessagesDAO(){
+		include_once 'DAO/messagesDAO.php';
+		return new messagesDAO($this->getDBManager());
 	}
 }
 
