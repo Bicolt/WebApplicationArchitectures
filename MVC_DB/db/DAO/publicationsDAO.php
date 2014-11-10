@@ -31,8 +31,8 @@ class publicationsDAO extends baseDAO {
 	// }
 	function getPublications2() {
 		$query = $this->getDBManager()->prepareQuery ( "select * from publications" );
-		$this->getDBManager ()->executeQuery ( $query );
-		$resultSet = $this->getDBManager ()->fetchResults ( $query );
+		$this->getDBManager()->executeQuery( $query );
+		$resultSet = $this->getDBManager()->fetchResults ( $query );
 		return $resultSet;
 	}
 }
