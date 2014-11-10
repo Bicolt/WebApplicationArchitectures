@@ -9,7 +9,7 @@ class validation_functions {
 	 * @return boolean indicating whether it is a valid email or not     
 	 */
 	public function isEmailValid($emailStr) {
-		$regex = "/ˆ[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i";
+		$regex = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i";
 		if (!preg_match ($regex, $emailStr))
 			return (false);
 		else

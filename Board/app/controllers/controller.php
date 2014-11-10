@@ -8,11 +8,11 @@ class Controller {
 		$this->model = $model;
 		if ($action != null) {
 			switch ($action) {
-				case " insertNewMessageFromSimpleForm " :
-					$this - insertNewMessageParameters ( $parameters, MESSAGE_FORM_SIMPLE );
+				case "insertNewMessageFromSimpleForm" :
+					$this->insertNewMessageParameters ( $parameters, MESSAGE_FORM_SIMPLE );
 					break;
-				case " insertNewMessageFromInteractiveForm " :
-					$this - insertNewMessageParameters ( $parameters, MESSAGE_FORM_INTERACTIVE );
+				case "insertNewMessageFromInteractiveForm" :
+					$this->insertNewMessageParameters ( $parameters, MESSAGE_FORM_INTERACTIVE );
 					break;
 				default :
 			}
@@ -25,12 +25,12 @@ class Controller {
 	 *        	- array containing the parameters to be validated
 	 */
 	public function insertNewMessageParameters($parameters, $formType) {
-		$authorEmail = $parameters [" fAuthorEmail "];
-		$title = $parameters [" fMessageTitle "];
-		$content = $parameters [" fMessageContent "];
+		$authorEmail = $parameters ["fAuthorEmail"];
+		$title = $parameters ["fMessageTitle"];
+		$content = $parameters ["fMessageContent"];
 		$areParsValid = $this->model->areMessageFormParametersValid ( $authorEmail, $title, $content );
 		if ($areParsValid)
-			$this->insertNewMessage ( $authorEmail, $title, $content );
+			$this->model->insertNewMessage ( $authorEmail, $title, $content );
 		else
 			$this->model->setUpErrorMessage ( $formType );
 	}

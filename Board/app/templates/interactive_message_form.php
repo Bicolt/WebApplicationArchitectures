@@ -1,8 +1,7 @@
 <form id='insertNewMessage' class="form-horizontal" role="form"
 	method='get' action='index.php'>
 
-	<input id='action' type='hidden' name='action'
-		value='insertNewMessageFromInteractiveForm' />
+	<input id='action' type='hidden' name='action' value='insertNewMessageFromInteractiveForm' />
 
 	<div class="control-group">
 		<label for='fAuthorEmail' class="control-label">Email</label>

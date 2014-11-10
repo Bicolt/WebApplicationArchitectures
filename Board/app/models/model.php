@@ -24,9 +24,9 @@ class Model {
 	public function prepareMessagesList() {
 		$results = $this->messagesDAO->getMessages();
 		$this->messageList = "";
-		foreach ( $results as $row )
-			$this->messageList .= "<li > <strong >" . $row["author"] . ": </ strong >" . $row ["title"] . "<blockquote >" . $row ["content"] . " </ blockquote > </li >";
-		$this->messageList = "<ul >" . $this->messageList . " </ul >";
+		foreach ($results as $row)
+			$this->messageList .= "<li> <strong>" . $row["author"] . ": </strong>" . $row ["title"] . "<blockquote>" . $row ["content"] . " </blockquote> </li>";
+		$this->messageList = "<ul>" . $this->messageList . " </ul >";
 	}
 	
 	public function areMessageFormParametersValid($email, $title, $content) {

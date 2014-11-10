@@ -14,19 +14,19 @@ class messagesDAO extends BaseDAO {
 		$sqlQuery = "SELECT * ";
 		$sqlQuery .= "FROM board ";
 		$sqlQuery .= "ORDER BY board.author;";
-		
-		$result = $this->getDbManager()->executeQuery( $sqlQuery );
-		
+		$query  = $this->getDBManager()->prepareQuery($sqlQuery);
+		$this->getDbManager()->executeQuery($query);
+		$result = $this->getDbManager()->fetchResults($query);
 		return $result;
 	}
 	
 	function insertNewMessage($email, $title, $content) {
 		$sqlQuery = "INSERT INTO board(id, author, title, content) ";
 		$sqlQuery .= "VALUES(NULL,'$email','$title','$content')";
+		$query  = $this->getDBManager()->prepareQuery($sqlQuery);
+		$this->getDbManager()->executeQuery($query);
 		
-		$result = $this->getDbManager()->executeQuery( $sqlQuery );
-		
-		return $result;
+		//return $result;
 	}
 }
 
