@@ -4,19 +4,18 @@
  * View component
  */
 class View {
-  private $model;
-  private $controller;
+  private $model, $controller, $app;
 
-  public function __construct($model)
+  public function __construct($controller, $model, $app)
   {
+    $this->controller = $controller;
     $this->model = $model;
+    $this->app = $app;
   }
 
   public function output()
   {
-    $returnString = $this->model->jsonString;
-
-    return $returnString;
+    $this->app->response->write($this->model->outputString);
   }
 }
 

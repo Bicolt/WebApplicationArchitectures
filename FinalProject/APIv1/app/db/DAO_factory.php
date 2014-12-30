@@ -4,7 +4,7 @@
  * DAO factory for DB connection
  */
 
-include_once 'db/mysql_PDO_db_manager.php';
+include_once 'mysql_PDO_db_manager.php';
 
 class DAO_factory
 {
@@ -38,10 +38,10 @@ class DAO_factory
     }
   }
 
-  public function getPublicationDAO()
+  public function getCommonDAO()
   {
-    include_once 'db/dao/publications_DAO.php';
-    return new publicationsDAO($this->getDBManager());
+    include_once 'dao/common_DAO.php';
+    return new commonDAO($this->getDBManager());
   }
 }
 

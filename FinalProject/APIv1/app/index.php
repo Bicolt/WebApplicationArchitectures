@@ -15,104 +15,86 @@ Slim\Slim::registerAutoloader();
  */
 $app = new Slim\Slim(array('debug' => true));
 
+include_once("conf/config.inc.php");
 include_once("models/model.php");
 include_once("controllers/controller.php");
 include_once("views/view.php");
 
+$pagesArray = [1 => 'students', 2 => 'lecturers', 3 => 'nationalities', 4 => 'tasks', 5 => 'courses', 6 => 'questionnaire'];
+
 /**
- * Create the slim app route
+ * Create the slim app routes
  */
 
-/*$app->map('/welcome/user/:username', function($username) use ($app){
-  echo "Welcome $username";
-})->via('GET,'POST');
-*/
-
-$app->get('/publications(/:id)', function($id = null) use ($app){
-  if (!is_null($id)) {
-    $action = 'GetPublication';
-  } else {
-    $action = 'GetPublications';
-  }
-  handleAction($app, $action, $id);
+$app->get('/questionnaire/search', function () use ($app) {
+    $page = 'questionnaire';
+    $action = ACTION_SEARCH;
+    $parameters = ['student' => $app->request()->params('student_id'),
+        'nationality' => $app->request()->params('nationality_id'),
+        'lecturer' => $app->request()->params('lecturer_id'),
+        'course' => $app->request()->params('course_id'),
+        'task' => $app->request()->params('task_id')];
+    handleAction($app, $page, $action, $parameters);
 });
 
-$app->get('/:table(/:id)', function($table, $id = null) use ($app){
-	if (!is_null($id)) {
-		$action = 'GetPublication';
-	} else {
-		$action = 'GetPublications';
-	}
-	handleAction($app, $action, $id);
-});
-
-$app->get('/publications/search/:query', function($query = null) use ($app){
-  if (!is_null($query)) {
-    $action = 'SearchPublication';
-  } else {
-    $action = null;
-  }
-  handleAction($app, $action, $query);
-});
-
-$app->post('/publications', function() use ($app){
-  //$body = file_get_contents('php://input');
-  $body = $app->request->getBody();
-  if (!is_null($body) && !empty($body)) {
-    $action = 'CreatePublication';
-  } else {
-    $action = null;
-  }
-  handleAction($app, $action, $body);
-});
-
-$app->put('/publications/:id', function($id) use ($app){
-  if (!is_null($id)) {
-    $body = $app->request->getBody();
-    if (!is_null($body) && !empty($body)) {
-      $action = 'UpdatePublication';
-    } else {
-      $action = null;
+$app->get('/:page(/:id)', function ($page, $id = null) use ($app, $pagesArray) {
+    if (!array_search($page, $pagesArray)) {
+        $page = null;
     }
-  } else {
-    $action = null;
-  }
-  handleAction($app, $action, $body, $id);
+    $parameters = array();
+    if (!is_null($id)) {
+        $parameters['id'] = $id;
+        $action = ACTION_GET_BY_ID;
+    } else {
+        $action = ACTION_GET_ALL;
+    }
+    handleAction($app, $page, $action, $parameters);
 });
 
-$app->delete('/publications/:id', function($id) use ($app){
-  if (!is_null($id)) {
-    $action = 'DeletePublication';
-  } else {
-    $action = null;
-  }
-  handleAction($app, $action, $id);
+$app->post('/:page', function ($page) use ($app, $pagesArray) {
+    if (!array_search($page, $pagesArray)) {
+        $page = null;
+    }
+    $action = ACTION_ADD;
+    $parameters['json'] = $app->request->getBody();
+    handleAction($app, $page, $action, $parameters);
 });
 
-$app->notFound(function() use ($app)
+$app->put('/:page/:id', function ($page, $id) use ($app, $pagesArray) {
+    if (!array_search($page, $pagesArray)) {
+        $page = null;
+    }
+    $action = ACTION_UPDATE;
+    $parameters['id'] = $id;
+    $parameters['json'] = $app->request->getBody();
+    handleAction($app, $page, $action, $parameters);
+});
+
+$app->delete('/:page/:id', function ($page, $id) use ($app, $pagesArray) {
+    if (!array_search($page, $pagesArray)) {
+        $page = null;
+    }
+    $action = ACTION_DELETE;
+    $parameters['id'] = $id;
+    handleAction($app, $page, $action, $parameters);
+});
+
+//$app->notFound(function () use ($app) {
+//    handleAction($app);
+//});
+
+// Common function to handle the previous routes
+function handleAction($app, $page = null, $action = null, $parameters = null)
 {
-  handleAction($app);
-});
-
-/*$model = new Model() ;
-$controller = new Controller( $model , $action , $a , $b ) ;
-$view = new View( $controller , $model ) ;*/
-
-function handleAction($app, $action = null, $a = null, $b = null)
-{
-  if (is_null($action)) {
-    $app->response()->status(404);
-  } else {
-    $model = new Model();
-    $controller = new Controller($model, $action, $a, $b);
-    $view = new View($model);
-    $ret = $view->output();
-    $app->response()['Content-Type'] = 'application/json';
-    $app->response()->body($ret);
-  }
-
+    $model = new Model(); // common model
+    $controller = new Controller($model, $app, $page, $action, $parameters); // common controller with different actions defined by the codes provided
+    $view = new View($controller, $model, $app); // common view
+    return $view->output(); // this returns the response to the requesting client
 }
 
-$app->run();
+// set up common headers for every response
+$app->response()->header("Content-Type","application/json; charset=utf-8");
 
+// Run the slim framework. This will execute one of the requested routes (API)
+$app->run();
 ?>
