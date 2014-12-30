@@ -1,7 +1,7 @@
 <?php
 /**
- * @author MrWormy
- * @example MVC with db
+ * @author Nicolas Benning <nicolas.benning@mydit.ie>
+ * Model component
  */
 
 include_once("db/DAO_factory.php");

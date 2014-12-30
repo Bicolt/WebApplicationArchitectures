@@ -1,7 +1,8 @@
 <?php
 /**
-* @example publications dao
-*/
+ * @author Nicolas Benning <nicolas.benning@mydit.ie>
+ * publications DAO
+ */
 
 include_once 'db/dao/base_DAO.php';
 

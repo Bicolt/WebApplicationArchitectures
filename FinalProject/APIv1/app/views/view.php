@@ -1,8 +1,8 @@
 <?php
 /**
- * @author MrWormy
+ * @author Nicolas Benning <nicolas.benning@mydit.ie>
+ * View component
  */
-
 class View {
   private $model;
   private $controller;
@@ -14,9 +14,9 @@ class View {
 
   public function output()
   {
-    $jsonString = $this->model->jsonString;
+    $returnString = $this->model->jsonString;
 
-    return $jsonString;
+    return $returnString;
   }
 }
 

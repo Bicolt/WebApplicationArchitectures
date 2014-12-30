@@ -1,5 +1,10 @@
 <?php
 /**
+ * @author Nicolas Benning <nicolas.benning@mydit.ie>
+ * index file - contains the routing for the API
+ */
+
+/**
  * Load Slim framework
  */
 require_once "../Slim/Slim.php";

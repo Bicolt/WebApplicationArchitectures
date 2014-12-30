@@ -1,8 +1,8 @@
 <?php
 /**
-* @author Thomas Laurence
-* @example Basci DAO object
-*/
+ * @author Nicolas Benning <nicolas.benning@mydit.ie>
+ * Basic DAO - Maybe useless?
+ */
 class BaseDAO
 {
 

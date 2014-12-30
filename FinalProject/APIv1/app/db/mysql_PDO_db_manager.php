@@ -1,7 +1,7 @@
 <?php
 /**
- * @author Thomas Laurence <thomas.laurenc@mydit.ie>
- * @description Simple DB Manage with PDO, will extend a PDO base manager.
+ * @author Nicolas Benning <nicolas.benning@mydit.ie>
+ * Simple DB Manager with a MySQL PDO
  */
 
 include_once("conf/config.inc.php");

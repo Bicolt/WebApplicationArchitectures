@@ -1,7 +1,8 @@
 <?php
 /**
-* @author MrWormy
-*/
+ * @author Nicolas Benning <nicolas.benning@mydit.ie>
+ * Controller component
+ */
 
 class Controller {
   private $model;

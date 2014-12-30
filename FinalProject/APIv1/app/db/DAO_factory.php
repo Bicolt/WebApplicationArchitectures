@@ -1,7 +1,8 @@
 <?php
 /**
-* @author Thomas Laurence
-*/
+ * @author Nicolas Benning <nicolas.benning@mydit.ie>
+ * DAO factory for DB connection
+ */
 
 include_once 'db/mysql_PDO_db_manager.php';
 
