@@ -1,0 +1,1516 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "RESTful application for the management of academic questionnaires aimed at quantifying the mental workload imposed by university lectures on students. \n\nFinal project for the Web Application Architectures class in DIT.\n",
+        "version": "1.0.0",
+        "title": "Web Application Architectures API v1",
+        "contact": {
+            "name": "Nicolas Benning",
+            "email": "nicolas.benning@mydit.ie"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "http://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "lucalongo.eu/courses/2014-2015/WebApplicationArchitectures/students/D14122954",
+    "basePath": "/APIv1/app",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/students": {
+            "get": {
+                "tags": [
+                    "students"
+                ],
+                "summary": "Retrieves the list of students",
+                "description": "Produces a JSON containing the list of all the students in the database",
+                "operationId": "getStudents",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Student"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Students not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "students"
+                ],
+                "summary": "Add a new student to the database",
+                "description": "Add a new student to the database with the JSON object provided",
+                "operationId": "addStudent",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Student object that needs to be added to the database",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Student"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Validation exception"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/students/{student_number}": {
+            "get": {
+                "tags": [
+                    "students"
+                ],
+                "summary": "Retrieves the details about a student (via ID)",
+                "description": "Produces a JSON containing the details about a student",
+                "operationId": "getStudentByID",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "student_number",
+                        "description": "ID of the student that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Student"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Student not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "students"
+                ],
+                "summary": "Update an existing student",
+                "description": "Update an existing student",
+                "operationId": "updateStudent",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "student_number",
+                        "description": "student_number of the student that needs to be updated",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Updated student object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Student"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Student not found"
+                    },
+                    "405": {
+                        "description": "Validation exception"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "students"
+                ],
+                "summary": "Deletes a student",
+                "description": "Deletes a student",
+                "operationId": "deleteStudent",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "student_number",
+                        "description": "student_number to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Student not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/courses": {
+            "get": {
+                "tags": [
+                    "courses"
+                ],
+                "summary": "Retrieves the list of courses",
+                "description": "Produces a JSON containing the list of all the courses in the database",
+                "operationId": "getCourses",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Course"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Courses not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "courses"
+                ],
+                "summary": "Add a new course to the database",
+                "description": "Add a new course to the database with the JSON object provided",
+                "operationId": "addCourse",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Course object that needs to be added to the database",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Course"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Validation exception"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/courses/{id_course}": {
+            "get": {
+                "tags": [
+                    "courses"
+                ],
+                "summary": "Retrieves the details about a course (via ID)",
+                "description": "Produces a JSON containing the details about a course",
+                "operationId": "getCourseByID",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id_course",
+                        "description": "ID of the course that needs to be fetched",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Course"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Course not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "courses"
+                ],
+                "summary": "Update an existing course",
+                "description": "Update an existing course",
+                "operationId": "updateCourse",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id_course",
+                        "description": "id_course of the course that needs to be updated",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Updated course object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Course"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Course not found"
+                    },
+                    "405": {
+                        "description": "Validation exception"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "courses"
+                ],
+                "summary": "Deletes a course",
+                "description": "Deletes a course",
+                "operationId": "deleteCourse",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id_course",
+                        "description": "id_course to delete",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Course not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/lecturers": {
+            "get": {
+                "tags": [
+                    "lecturers"
+                ],
+                "summary": "Retrieves the list of lecturers",
+                "description": "Produces a JSON containing the list of all the lecturers in the database",
+                "operationId": "getLecturers",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Lecturer"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Lecturers not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "lecturers"
+                ],
+                "summary": "Add a new lecturer to the database",
+                "description": "Add a new lecturer to the database with the JSON object provided",
+                "operationId": "addLecturer",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Lecturer object that needs to be added to the database",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Lecturer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Validation exception"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/lecturers/{id}": {
+            "get": {
+                "tags": [
+                    "lecturers"
+                ],
+                "summary": "Retrieves the details about a lecturer (via ID)",
+                "description": "Produces a JSON containing the details about a lecturer",
+                "operationId": "getLecturerByID",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "ID of the lecturer that needs to be fetched",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Lecturer"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Lecturer not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "lecturers"
+                ],
+                "summary": "Update an existing lecturer",
+                "description": "Update an existing lecturer",
+                "operationId": "updateLecturer",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "id of the lecturer that needs to be updated",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Updated lecturer object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Lecturer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Lecturer not found"
+                    },
+                    "405": {
+                        "description": "Validation exception"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "lecturers"
+                ],
+                "summary": "Deletes a lecturer",
+                "description": "Deletes a lecturer",
+                "operationId": "deleteLecturer",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "id to delete",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Lecturer not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/nationalities": {
+            "get": {
+                "tags": [
+                    "nationalities"
+                ],
+                "summary": "Retrieves the list of nationalities",
+                "description": "Produces a JSON containing the list of all the nationalities in the database",
+                "operationId": "getNationalities",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Nationality"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Nationalities not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "nationalities"
+                ],
+                "summary": "Add a new nationality to the database",
+                "description": "Add a new nationality to the database with the JSON object provided",
+                "operationId": "addNationality",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Nationality object that needs to be added to the database",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Nationality"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Validation exception"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/nationalities/{id}": {
+            "get": {
+                "tags": [
+                    "nationalities"
+                ],
+                "summary": "Retrieves the details about a nationality (via ID)",
+                "description": "Produces a JSON containing the details about a nationality",
+                "operationId": "getNationalityByID",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "ID of the nationality that needs to be fetched",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Nationality"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Nationality not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "nationalities"
+                ],
+                "summary": "Update an existing nationality",
+                "description": "Update an existing nationality",
+                "operationId": "updateNationality",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "id of the nationality that needs to be updated",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Updated nationality object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Nationality"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Nationality not found"
+                    },
+                    "405": {
+                        "description": "Validation exception"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "nationalities"
+                ],
+                "summary": "Deletes a nationality",
+                "description": "Deletes a nationality",
+                "operationId": "deleteNationality",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "id to delete",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Nationality not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/tasks": {
+            "get": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Retrieves the list of tasks",
+                "description": "Produces a JSON containing the list of all the tasks in the database",
+                "operationId": "getTasks",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Task"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Tasks not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Add a new task to the database",
+                "description": "Add a new task to the database with the JSON object provided",
+                "operationId": "addTask",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Task object that needs to be added to the database",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Task"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Validation exception"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/tasks/{task_id}": {
+            "get": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Retrieves the details about a task (via ID)",
+                "description": "Produces a JSON containing the details about a task",
+                "operationId": "getTaskByID",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "task_id",
+                        "description": "ID of the task that needs to be fetched",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Task"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Task not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Update an existing task",
+                "description": "Update an existing task",
+                "operationId": "updateTask",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "task_id",
+                        "description": "task_id of the task that needs to be updated",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Updated task object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Task"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Task not found"
+                    },
+                    "405": {
+                        "description": "Validation exception"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Deletes a task",
+                "description": "Deletes a task",
+                "operationId": "deleteTask",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "task_id",
+                        "description": "task_id to delete",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Task not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/questionnaire": {
+            "get": {
+                "tags": [
+                    "questionnaires"
+                ],
+                "summary": "Retrieves the list of questionnaires",
+                "description": "Produces a JSON containing the list of all the questionnaires in the database",
+                "operationId": "getQuestionnaires",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Questionnaire"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Questionnaires not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "questionnaires"
+                ],
+                "summary": "Add a new questionnaire to the database",
+                "description": "Add a new questionnaire to the database with the JSON object provided",
+                "operationId": "addQuestionnaire",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Questionnaire object that needs to be added to the database",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Questionnaire"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Validation exception"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/questionnaire/{id}": {
+            "get": {
+                "tags": [
+                    "questionnaires"
+                ],
+                "summary": "Retrieves the details about a questionnaire (via ID)",
+                "description": "Produces a JSON containing the details about a questionnaire",
+                "operationId": "getQuestionnaireByID",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "ID of the questionnaire that needs to be fetched",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Questionnaire"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Questionnaire not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "questionnaires"
+                ],
+                "summary": "Update an existing questionnaire",
+                "description": "Update an existing questionnaire",
+                "operationId": "updateQuestionnaire",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "id of the questionnaire that needs to be updated",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Updated questionnaire object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Questionnaire"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Questionnaire not found"
+                    },
+                    "405": {
+                        "description": "Validation exception"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "questionnaires"
+                ],
+                "summary": "Deletes a questionnaire",
+                "description": "Deletes a questionnaire",
+                "operationId": "deleteQuestionnaire",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "id to delete",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Questionnaire not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/questionnaire/search":{
+            "get": {
+                "tags": [
+                    "questionnaires"
+                ],
+                "summary": "Retrieves a list of questionnaires filtered by parameters",
+                "description": "Filter the questionnaires by nationalities, lecturers, courses, tasks, students (each one optional)",
+                "operationId": "getQuestionnaireByID",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "nationality_id",
+                        "description": "ID of the nationality to search",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "in": "query",
+                        "name": "lecturer_id",
+                        "description": "ID of the lecturer to search",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "in": "query",
+                        "name": "course_id",
+                        "description": "ID of the course to search",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "in": "query",
+                        "name": "task_id",
+                        "description": "ID of the task to search",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "in": "query",
+                        "name": "student_id",
+                        "description": "ID of the student to search",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Questionnaire"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid parameters"
+                    },
+                    "404": {
+                        "description": "No questionnaire found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        }
+    },
+
+    "definitions": {
+        "Student": {
+            "required": [
+                "student_number",
+                "age",
+                "id_nationality"
+            ],
+            "properties": {
+                "student_number": {
+                    "type": "string"
+                },
+                "age": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "id_nationality": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+          }
+        },
+        "Course": {
+            "required": [
+                "id_course",
+                "lecturer_id"
+            ],
+            "properties": {
+                "id_course": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "lecturer_id": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "Lecturer": {
+            "required": [
+                "id",
+                "name"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "Nationality": {
+            "required": [
+                "id",
+                "description"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "description": {
+                    "type": "string"
+                }
+            }
+        },
+        "Task":{
+            "required": [
+                "task_id",
+                "description",
+                "date",
+                "duration_mins",
+                "daytime",
+                "course_id"
+            ],
+            "properties": {
+                "task_id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "duration_mins": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "daytime": {
+                    "type": "string"
+                },
+                "course_id": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "Questionnaire": {
+            "required": [
+                "id",
+                "student_number",
+                "task_number",
+                "MWL_total",
+                "RSME",
+                "time_1",
+                "time_2",
+                "intrusiveness",
+                "not_valid"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "student_number": {
+                    "type": "string"
+                },
+                "task_number":{
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "MWL_total":{
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "RSME":{
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "time_1":{
+                    "type": "string",
+                    "format": "time"
+                },
+                "NASA_mental":{
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "NASA_physical": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "NASA_temporal": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "NASA_performance": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "NASA_frustration": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "NASA_effort": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "NASA_temporal_or_frustration": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "NASA_performance_or_mental": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "NASA_mental_or_physical": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "NASA_frustration_or_performance": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "NASA_temporal_or_effort": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "NASA_physical_or_frustration": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "NASA_performance_or_temporal": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "NASA_mental_or_effort": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "NASA_physical_or_temporal": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "NASA_frustration_or_effort": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "NASA_physical_or_performance": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "NASA_temporal_or_mental": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "NASA_effort_or_physical": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "NASA_frustration_or_mental": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "NASA_performance_or_effort": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "WP_solving_deciding": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "WP_response_selection": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "WP_task_space": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "WP_verbal_material": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "WP_visual_resources": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "WP_auditory_resources": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "WP_manual_response": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "WP_speech_response": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "AT_mental": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "AT_parallelism": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "AT_temporal": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "AT_manual": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "AT_visual": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "AT_solving_deciding": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "AT_frustration": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "AT_context_bias": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "AT_task_space": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "AT_motivation": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "AT_verbal_material": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "AT_skill": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "AT_auditory_resources": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "AT_physical_demand": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "AT_speech_response": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "AT_past_knowledge": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "AT_arousal": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "AT_performance": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "AT_response_selection": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "time_2": {
+                    "type": "string",
+                    "format": "time"
+                },
+                "intrusiveness": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "not_valid": {
+                    "type": "boolean"
+                }
+            }
+        }
+    }
+}
