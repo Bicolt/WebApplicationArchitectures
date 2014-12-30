@@ -25,12 +25,14 @@ class Controller {
           $model->addNewElement($page,$parameters['json']);
           break;
         case ACTION_UPDATE:
+          $model->updateElement($page,$parameters['json']);
           break;
         case ACTION_DELETE:
+          $model->deleteElement($page,$parameters['id']);
           break;
         case ACTION_SEARCH:
           if ($page != 'questionnaire') {
-            $model->reportError(HTTPSTATUS_NOTALLOWED);
+            $model->reportError(HTTPSTATUS_NOTALLOWED, $page);
           } else {
             $model->searchQuestionnaire($parameters);
           }
@@ -41,33 +43,6 @@ class Controller {
     } else {
       $model->reportError(HTTPSTATUS_NOTFOUND);
     }
-
-
-
-//    if($action != null){
-//      switch ($action) {
-//        case 'GetPublications':
-//          $model->preparePublications();
-//          break;
-//        case 'GetPublication':
-//          $model->preparePublicationById($a);
-//          break;
-//        case 'SearchPublication':
-//          $model->preparePublicationByName($a);
-//          break;
-//        case 'CreatePublication':
-//          $model->createPublication($a);
-//          break;
-//        case 'UpdatePublication':
-//          $model->updatePublication($a,$b);
-//          break;
-//        case 'DeletePublication':
-//          $model->deletePublication($a);
-//          break;
-//        default:
-//          break;
-//      }
-//    }
   }
 }
 ?>

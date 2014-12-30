@@ -15,7 +15,12 @@ class View {
 
   public function output()
   {
-    $this->app->response->write($this->model->outputString);
+    $ret = $this->model->outputArray;
+    if (array_key_exists('code', $ret)) {
+      $this->app->response->status($ret['code']);
+    }
+    $body = json_encode($ret);
+    $this->app->response->write($body);
   }
 }
 

@@ -5,32 +5,20 @@
  */
 
 class Validation {
-    private $model;
+    private $model, $commonDAO;
 
-    public function __construct($model){
+    public function __construct(Model $model, commonDAO $commonDAO){
         $this->model = $model;
+        $this->commonDAO = $commonDAO;
     }
 
-    public function errorReporting () {
-
+    public function IDIsFree ($page,$idName,$id) {
+        $res = $this->commonDAO->getById($page, $idName, $id);
+        return empty($res);
     }
 
-//    public function validateID ($page, $id) {
-//        switch ($page) {
-//            case 'students':
-//                $idName = 'student_number';
-//                break;
-//            case 'tasks':
-//                $idName = 'task_id';
-//                break;
-//            case 'courses':
-//                $idName = 'id_course';
-//                break;
-//            default:
-//                $idName = 'id';
-//                break;
-//        }
-//        $res = $this->commonDAO->getById($page, $idName, $id);
-//        return empty($res);
-//    }
+    public function IDExists ($page, $idName, $id) {
+        $res = $this->commonDAO->getById($page, $idName, $id);
+        return !empty($res);
+    }
 }

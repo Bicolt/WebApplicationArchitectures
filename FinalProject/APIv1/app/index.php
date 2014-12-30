@@ -79,17 +79,13 @@ $app->delete('/:page/:id', function ($page, $id) use ($app, $pagesArray) {
     handleAction($app, $page, $action, $parameters);
 });
 
-//$app->notFound(function () use ($app) {
-//    handleAction($app);
-//});
-
 // Common function to handle the previous routes
 function handleAction($app, $page = null, $action = null, $parameters = null)
 {
     $model = new Model(); // common model
     $controller = new Controller($model, $app, $page, $action, $parameters); // common controller with different actions defined by the codes provided
     $view = new View($controller, $model, $app); // common view
-    return $view->output(); // this returns the response to the requesting client
+    $view->output(); // this returns the response to the requesting client
 }
 
 // set up common headers for every response

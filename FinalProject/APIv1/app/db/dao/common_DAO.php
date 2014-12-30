@@ -85,63 +85,26 @@ class commonDAO extends BaseDAO
         return $db->executeQuery($stmt);
     }
 
-    public function getPublications()
-    {
+    public function updateElement($page,$tab,$idName) {
         $db = $this->getDBManager();
-        $stmt = $db->prepareQuery("SELECT * FROM `publication` ;");
-
-        $db->executeQuery($stmt);
-        $result = $db->fetchQuery($stmt);
-
-        return $result;
-    }
-
-    public function getPublicationById($id)
-    {
-        $result = null;
-        if (!is_null($id)) {
-            $db = $this->getDBManager();
-            $stmt = $db->prepareQuery("SELECT * FROM `publication` WHERE id = $id;");
-
-            $db->executeQuery($stmt);
-            $result = $db->fetchQuery($stmt);
+        foreach ($tab as $key => $value) {
+            $values[] = "$key = '$value'";
         }
-        return $result;
+        $sqlClause = implode(", ",$values);
+        $queryString = "UPDATE $page SET $sqlClause WHERE $idName='$tab[$idName]';";
+        $stmt = $db->prepareQuery($queryString);
+
+        return $db->executeQuery($stmt);
     }
 
-    public function getPublicationByName($name)
-    {
-        $result = null;
-        if (!is_null($name)) {
-            $name = addslashes($name);
-            $db = $this->getDBManager();
-            $stmt = $db->prepareQuery("SELECT * FROM `publication` WHERE authors LIKE '%$name%' OR title LIKE '%$name%';");
-
-            $db->executeQuery($stmt);
-            $result = $db->fetchQuery($stmt);
-        }
-        return $result;
-    }
-
-    public function createNewPublication($tab)
-    {
-        $result = null;
-        $title = $tab['title'];
-        $authors = $tab['authors'];
-        $year = $tab['year'];
-        $proceeding = $tab['proceeding'];
-
+    public function deleteElement($page,$idName,$id) {
         $db = $this->getDBManager();
-        $stmt = $db->prepareQuery("INSERT INTO `publication` (`id`, `title`, `authors`, `year`, `proceeding`) VALUES (NULL, '$title', '$authors', $year, '$proceeding');");
+        $queryString = "DELETE FROM $page WHERE $idName='$id';";
+        $stmt = $db->prepareQuery($queryString);
 
-        $success = $db->executeQuery($stmt);
-
-        if ($success) {
-            $result = array("success" => "OK");
-        }
-
-        return $result;
+        return $db->executeQuery($stmt);
     }
+
 }
 
 ?>
