@@ -32,16 +32,16 @@ class Controller {
           break;
         case ACTION_SEARCH:
           if ($page != 'questionnaire') {
-            $model->reportError(HTTPSTATUS_NOTALLOWED, $page);
+            $model->reportResult(HTTPSTATUS_NOTALLOWED, $page);
           } else {
             $model->searchQuestionnaire($parameters);
           }
           break;
         default:
-          $model->reportError(HTTPSTATUS_BADREQUEST);
+          $model->reportResult(HTTPSTATUS_BADREQUEST);
       }
     } else {
-      $model->reportError(HTTPSTATUS_NOTFOUND);
+      $model->reportResult(HTTPSTATUS_NOTFOUND);
     }
   }
 }

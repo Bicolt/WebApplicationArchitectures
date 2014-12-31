@@ -33,7 +33,7 @@ class Model
         $idName = $this->findIdName($page);
         $res = $this->commonDAO->getById($page, $idName, $id);
         if (empty($res)) {
-            $this->outputArray = $this->reportResult(HTTPSTATUS_NOTFOUND, $page);
+            $this->reportResult(HTTPSTATUS_NOTFOUND, $page);
         } else {
             $this->outputArray = $res[0];
         }
@@ -52,12 +52,12 @@ class Model
         if ($this->validation->IDIsFree($page,$idName, $tab[$idName])) {
             $res = $this->commonDAO->addNewElement($page, $tab);
             if ($res) {
-                $this->outputArray = $this->reportResult(HTTPSTATUS_CREATED, $page);
+                $this->reportResult(HTTPSTATUS_CREATED, $page);
             } else {
-                $this->outputArray = $this->reportResult(HTTPSTATUS_INTSERVERERR, $page);
+                $this->reportResult(HTTPSTATUS_INTSERVERERR, $page);
             }
         } else {
-            $this->outputArray = $this->reportResult(HTTPSTATUS_NOTALLOWED, $page);
+            $this->reportResult(HTTPSTATUS_NOTALLOWED, $page);
         }
     }
 
@@ -67,12 +67,12 @@ class Model
         if ($this->validation->IDExists($page,$idName, $tab[$idName])) {
             $res = $this->commonDAO->updateElement($page, $tab, $idName);
             if ($res) {
-                $this->outputArray = $this->reportResult(HTTPSTATUS_NOCONTENT, $page);
+                $this->reportResult(HTTPSTATUS_NOCONTENT, $page);
             } else {
-                $this->outputArray = $this->reportResult(HTTPSTATUS_INTSERVERERR, $page);
+                $this->reportResult(HTTPSTATUS_INTSERVERERR, $page);
             }
         } else {
-            $this->outputArray = $this->reportResult(HTTPSTATUS_NOTALLOWED, $page);
+            $this->reportResult(HTTPSTATUS_NOTALLOWED, $page);
         }
     }
 
@@ -81,12 +81,12 @@ class Model
         if ($this->validation->IDExists($page,$idName, $id)) {
             $res = $this->commonDAO->deleteElement($page, $idName, $id);
             if ($res) {
-                $this->outputArray = $this->reportResult(HTTPSTATUS_NOCONTENT, $page);
+                $this->reportResult(HTTPSTATUS_NOCONTENT, $page);
             } else {
-                $this->outputArray = $this->reportResult(HTTPSTATUS_INTSERVERERR, $page);
+                $this->reportResult(HTTPSTATUS_INTSERVERERR, $page);
             }
         } else {
-            $this->outputArray = $this->reportResult(HTTPSTATUS_NOTALLOWED, $page);
+            $this->reportResult(HTTPSTATUS_NOTALLOWED, $page);
         }
     }
 
@@ -130,7 +130,7 @@ class Model
                 break;
         }
         $resultArray['description'] = $description;
-        return $resultArray;
+        $this->outputArray = $resultArray;
     }
 
     public function findIdName($page)

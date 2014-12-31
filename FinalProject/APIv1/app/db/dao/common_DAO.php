@@ -43,7 +43,7 @@ class commonDAO extends BaseDAO
     public function searchQuestionnaire($parameters)
     {
         $db = $this->getDBManager();
-        $queryString = "SELECT q.*,n.description,c.id_course,l.name FROM questionnaire q, students s, lecturers l, nationalities n, tasks t, courses c ";
+        $queryString = "SELECT q.* FROM questionnaire q, students s, lecturers l, nationalities n, tasks t, courses c ";
         $queryString .= "WHERE q.task_number = t.task_id ";
         $queryString .= "AND q.student_number = s.student_number ";
         $queryString .= "AND s.id_nationality = n.id ";

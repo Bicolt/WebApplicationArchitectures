@@ -26,6 +26,10 @@ $pagesArray = [1 => 'students', 2 => 'lecturers', 3 => 'nationalities', 4 => 'ta
  * Create the slim app routes
  */
 
+$app->get('/', function () use ($app) {
+    echo "Welcome on the API. Check the documentation on 'APIv1/api-docs/doc.html' for more informations.";
+}) ;
+
 $app->get('/questionnaire/search', function () use ($app) {
     $page = 'questionnaire';
     $action = ACTION_SEARCH;
@@ -77,6 +81,10 @@ $app->delete('/:page/:id', function ($page, $id) use ($app, $pagesArray) {
     $action = ACTION_DELETE;
     $parameters['id'] = $id;
     handleAction($app, $page, $action, $parameters);
+});
+
+$app->notFound(function () use ($app) {
+    handleAction($app);
 });
 
 // Common function to handle the previous routes
